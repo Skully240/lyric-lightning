@@ -1,1 +1,143 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lyric Lightning</title><link rel="manifest" href="manifest.json"><style>body{font-family:system-ui;background:#0f172a;color:#fff;max-width:800px;margin:auto;padding:20px}button,input,select{padding:10px;margin:5px;border-radius:10px}.card{background:#1e293b;padding:15px;border-radius:15px}.word{background:#fff;color:#4f46e5;font-size:32px;font-weight:bold;padding:15px;border-radius:12px;text-align:center}</style></head><body><h1>⚡ Lyric Lightning</h1><div class="card"><input id="p1" value="Alex"><input id="p2" value="Jordan"><button id="start">Start</button></div><div id="game" style="display:none" class="card"><select id="cat"></select><button id="newWord">New Word</button><div id="word" class="word">READY</div></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Lyric Lightning</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+body{
+    font-family:system-ui,sans-serif;
+    background:#0f172a;
+    color:white;
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:20px;
+    margin-top:15px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:12px;
+    border:none;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.start-btn{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.word{
+    background:white;
+    color:#4f46e5;
+    font-size:42px;
+    font-weight:900;
+    text-align:center;
+    padding:25px;
+    border-radius:18px;
+    margin:20px 0;
+}
+
+.new-word-btn{
+    width:100%;
+    padding:24px;
+    background:#facc15;
+    color:#111827;
+    font-size:30px;
+    font-weight:900;
+    margin-top:20px;
+
+    box-shadow:
+    0 8px 20px rgba(250,204,21,.4);
+}
+
+.new-word-btn:hover{
+    transform:translateY(-2px);
+}
+
+.new-word-btn:active{
+    transform:scale(.98);
+}
+
+.hidden{
+    display:none;
+}
+</style>
+
+</head>
+<body>
+
+<h1>⚡ LYRIC LIGHTNING ⚡</h1>
+
+<div class="card">
+
+    <input id="p1" value="Alex">
+
+    <input id="p2" value="Jordan">
+
+    <button
+        id="start"
+        class="start-btn">
+        🚀 START GAME
+    </button>
+
+</div>
+
+<div
+    id="game"
+    class="card"
+    style="display:none">
+
+    <label>
+        Category
+    </label>
+
+    <select id="cat"></select>
+
+    <div id="word" class="word">
+
+        READY
+
+    </div>
+
+    <button
+        id="newWord"
+        class="new-word-btn">
+
+        🎲 NEW WORD
+
+    </button>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
