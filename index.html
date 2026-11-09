@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lyric Lightning</title>
-
-<link rel="manifest" href="manifest.json">
-
 <style>
 
 body{
@@ -18,30 +9,26 @@ body{
     padding:20px;
 }
 
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
 .card{
     background:#1e293b;
     padding:20px;
-    border-radius:20px;
+    border-radius:24px;
     margin-top:15px;
 }
 
-h1{
-    text-align:center;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    border-radius:12px;
-    border:none;
-    margin-top:10px;
-}
-
+input,
 select{
     width:100%;
     padding:12px;
     border-radius:12px;
     border:none;
+    margin-top:10px;
+    box-sizing:border-box;
 }
 
 button{
@@ -53,40 +40,32 @@ button{
 .start-btn{
     width:100%;
     padding:15px;
+    margin-top:15px;
+
     background:#22c55e;
     color:white;
-    font-size:18px;
-    font-weight:bold;
-    margin-top:12px;
-}
 
-.word{
-    background:white;
-    color:#4f46e5;
-    font-size:42px;
-    font-weight:900;
-    text-align:center;
-    padding:25px;
-    border-radius:16px;
-    margin-top:15px;
+    font-size:18px;
+    font-weight:700;
 }
 
 .scoreboard{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:15px;
+    gap:12px;
+    margin-bottom:20px;
 }
 
 .score-card{
-    background:#334155;
-    border-radius:16px;
-    padding:12px;
     text-align:center;
+    background:#334155;
+    padding:15px;
+    border-radius:16px;
 }
 
 .score-name{
-    font-weight:bold;
+    font-weight:700;
+    margin-bottom:8px;
 }
 
 .score-value{
@@ -94,12 +73,31 @@ button{
     font-weight:900;
 }
 
+.word{
+    background:white;
+    color:#4f46e5;
+
+    font-size:42px;
+    font-weight:900;
+
+    text-align:center;
+
+    padding:25px;
+    border-radius:18px;
+
+    margin-top:15px;
+    margin-bottom:15px;
+
+    word-break:break-word;
+}
+
 .score-btn{
     width:100%;
     padding:15px;
     margin-top:10px;
-    font-weight:bold;
+
     font-size:18px;
+    font-weight:700;
 }
 
 .p1{
@@ -114,109 +112,98 @@ button{
 
 .new-word-btn{
     width:100%;
+
     padding:24px;
+
     margin-top:20px;
+
     background:#facc15;
     color:#111827;
+
     font-size:30px;
     font-weight:900;
+
+    box-shadow:
+        0 8px 20px rgba(250,204,21,.35);
+}
+
+.new-word-btn:hover{
+    transform:translateY(-2px);
+}
+
+.new-word-btn:active{
+    transform:scale(.98);
 }
 
 #winnerBanner{
     display:none;
+
+    margin-top:20px;
+
     background:#facc15;
     color:#111827;
+
     padding:20px;
+
     border-radius:16px;
+
     text-align:center;
-    font-size:30px;
+
+    font-size:28px;
     font-weight:900;
-    margin-top:20px;
 }
 
+/* FIXED HISTORY BOX */
+
 #history{
+    height:120px;
+    max-height:120px;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
     margin-top:15px;
-    background:#0f172a;
-    border-radius:12px;
-    padding:10px;
+    padding:12px;
+
+    background:#0b1430;
+
+    border:1px solid #334155;
+    border-radius:16px;
+
+    box-sizing:border-box;
 }
 
 .history-item{
-    padding:4px 0;
+    padding:6px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    font-size:14px;
+}
+
+.history-item:last-child{
+    border-bottom:none;
 }
 
 .hidden{
     display:none;
 }
 
+@media (max-width:600px){
+
+    .score-value{
+        font-size:32px;
+    }
+
+    .word{
+        font-size:32px;
+    }
+
+    .new-word-btn{
+        font-size:24px;
+        padding:20px;
+    }
+}
+
 </style>
-</head>
-
-<body>
-
-<h1>⚡ LYRIC LIGHTNING ⚡</h1>
-
-<div class="card">
-
-    <input id="p1" value="Alex">
-
-    <input id="p2" value="Jordan">
-
-    <button id="start" class="start-btn">
-        🚀 START GAME
-    </button>
-
-</div>
-
-<div id="game" class="card hidden">
-
-    <div class="scoreboard">
-
-        <div class="score-card">
-            <div id="player1Name" class="score-name">
-                Alex
-            </div>
-            <div id="score1" class="score-value">
-                0
-            </div>
-        </div>
-
-        <div class="score-card">
-            <div id="player2Name" class="score-name">
-                Jordan
-            </div>
-            <div id="score2" class="score-value">
-                0
-            </div>
-        </div>
-
-    </div>
-
-    <select id="cat"></select>
-
-    <div id="word" class="word">
-        READY
-    </div>
-
-    <button id="p1Point" class="score-btn p1">
-        ✅ Player 1 Got It
-    </button>
-
-    <button id="p2Point" class="score-btn p2">
-        ✅ Player 2 Got It
-    </button>
-
-    <div id="history"></div>
-
-    <button id="newWord" class="new-word-btn">
-        🎲 NEW WORD
-    </button>
-
-    <div id="winnerBanner"></div>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-</html>
