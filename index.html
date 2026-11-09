@@ -162,3 +162,31 @@ button{
 <button id="p2Point" class="score-btn">
     ✅ Player 2 Got It
 </button>
+start.onclick = () => {
+
+    game.style.display = "block";
+
+    document.getElementById(
+        "player1Name"
+    ).textContent =
+        document.getElementById("p1").value;
+
+    document.getElementById(
+        "player2Name"
+    ).textContent =
+        document.getElementById("p2").value;
+
+    document.getElementById(
+        "p1Point"
+    ).textContent =
+        "✅ " +
+        document.getElementById("p1").value +
+        " Got It";
+
+    document.getElementById(
+        "p2Point"
+    ).textContent =
+        "✅ " +
+        document.getElementById("p2").value +
+        " Got It";
+};
