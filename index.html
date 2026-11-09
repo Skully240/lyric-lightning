@@ -1,25 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>Lyric Lightning</title>
 
 <link rel="manifest" href="manifest.json">
 
 <style>
+
 body{
     font-family:system-ui,sans-serif;
     background:#0f172a;
     color:white;
-    max-width:800px;
+    max-width:900px;
     margin:auto;
     padding:20px;
-}
-
-h1{
-    text-align:center;
 }
 
 .card{
@@ -29,11 +25,21 @@ h1{
     margin-top:15px;
 }
 
-input,
+h1{
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    margin-top:10px;
+}
+
 select{
     width:100%;
     padding:12px;
-    margin-top:10px;
     border-radius:12px;
     border:none;
 }
@@ -46,12 +52,12 @@ button{
 
 .start-btn{
     width:100%;
-    margin-top:15px;
     padding:15px;
     background:#22c55e;
     color:white;
-    font-weight:bold;
     font-size:18px;
+    font-weight:bold;
+    margin-top:12px;
 }
 
 .word{
@@ -61,37 +67,91 @@ button{
     font-weight:900;
     text-align:center;
     padding:25px;
-    border-radius:18px;
-    margin:20px 0;
+    border-radius:16px;
+    margin-top:15px;
+}
+
+.scoreboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.score-card{
+    background:#334155;
+    border-radius:16px;
+    padding:12px;
+    text-align:center;
+}
+
+.score-name{
+    font-weight:bold;
+}
+
+.score-value{
+    font-size:42px;
+    font-weight:900;
+}
+
+.score-btn{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.p1{
+    background:#22c55e;
+    color:white;
+}
+
+.p2{
+    background:#3b82f6;
+    color:white;
 }
 
 .new-word-btn{
     width:100%;
     padding:24px;
+    margin-top:20px;
     background:#facc15;
     color:#111827;
     font-size:30px;
     font-weight:900;
+}
+
+#winnerBanner{
+    display:none;
+    background:#facc15;
+    color:#111827;
+    padding:20px;
+    border-radius:16px;
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
     margin-top:20px;
-
-    box-shadow:
-    0 8px 20px rgba(250,204,21,.4);
 }
 
-.new-word-btn:hover{
-    transform:translateY(-2px);
+#history{
+    margin-top:15px;
+    background:#0f172a;
+    border-radius:12px;
+    padding:10px;
 }
 
-.new-word-btn:active{
-    transform:scale(.98);
+.history-item{
+    padding:4px 0;
 }
 
 .hidden{
     display:none;
 }
-</style>
 
+</style>
 </head>
+
 <body>
 
 <h1>⚡ LYRIC LIGHTNING ⚡</h1>
@@ -102,38 +162,57 @@ button{
 
     <input id="p2" value="Jordan">
 
-    <button
-        id="start"
-        class="start-btn">
+    <button id="start" class="start-btn">
         🚀 START GAME
     </button>
 
 </div>
 
-<div
-    id="game"
-    class="card"
-    style="display:none">
+<div id="game" class="card hidden">
 
-    <label>
-        Category
-    </label>
+    <div class="scoreboard">
+
+        <div class="score-card">
+            <div id="player1Name" class="score-name">
+                Alex
+            </div>
+            <div id="score1" class="score-value">
+                0
+            </div>
+        </div>
+
+        <div class="score-card">
+            <div id="player2Name" class="score-name">
+                Jordan
+            </div>
+            <div id="score2" class="score-value">
+                0
+            </div>
+        </div>
+
+    </div>
 
     <select id="cat"></select>
 
     <div id="word" class="word">
-
         READY
-
     </div>
 
-    <button
-        id="newWord"
-        class="new-word-btn">
-
-        🎲 NEW WORD
-
+    <button id="p1Point" class="score-btn p1">
+        ✅ Player 1 Got It
     </button>
+
+    <button id="p2Point" class="score-btn p2">
+        ✅ Player 2 Got It
+    </button>
+
+    <div id="history"></div>
+
+    <button id="newWord" class="new-word-btn">
+        🎲 NEW WORD
+    </button>
+
+    <div id="winnerBanner"></div>
 
 </div>
 
@@ -141,52 +220,3 @@ button{
 
 </body>
 </html>
-<div class="scoreboard">
-
-    <div class="score-card">
-        <div id="player1Name">Alex</div>
-        <div id="score1">0</div>
-    </div>
-
-    <div class="score-card">
-        <div id="player2Name">Jordan</div>
-        <div id="score2">0</div>
-    </div>
-
-</div>
-
-<button id="p1Point" class="score-btn">
-    ✅ Player 1 Got It
-</button>
-
-<button id="p2Point" class="score-btn">
-    ✅ Player 2 Got It
-</button>
-start.onclick = () => {
-
-    game.style.display = "block";
-
-    document.getElementById(
-        "player1Name"
-    ).textContent =
-        document.getElementById("p1").value;
-
-    document.getElementById(
-        "player2Name"
-    ).textContent =
-        document.getElementById("p2").value;
-
-    document.getElementById(
-        "p1Point"
-    ).textContent =
-        "✅ " +
-        document.getElementById("p1").value +
-        " Got It";
-
-    document.getElementById(
-        "p2Point"
-    ).textContent =
-        "✅ " +
-        document.getElementById("p2").value +
-        " Got It";
-};
