@@ -188,3 +188,20 @@ if(
         .register("./sw.js")
         .catch(console.error);
 }
+const item =
+document.createElement("div");
+
+item.className =
+"history-item";
+
+item.textContent =
+word;
+
+historyEl.prepend(item);
+
+while(historyEl.children.length > 10){
+
+    historyEl.removeChild(
+        historyEl.lastChild
+    );
+}
