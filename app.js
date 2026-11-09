@@ -1,6 +1,11 @@
 let cats = {};
 let bags = {};
 
+let score1 = 0;
+let score2 = 0;
+
+const WIN_SCORE = 15;
+
 fetch("words.json")
   .then(response => response.json())
   .then(data => {
@@ -10,174 +15,220 @@ fetch("words.json")
     for (const c in cats) {
       cat.innerHTML += `<option>${c}</option>`;
     }
-
   })
   .catch(err => {
-    console.error("Failed to load words.json", err);
+    console.error("Error loading words.json", err);
   });
 
-function sh(a) {
-  a = [...a];
+function shuffle(array) {
 
-  for (let i = a.length - 1; i > 0; i--) {
+  const arr = [...array];
 
-    let j = Math.floor(
+  for (let i = arr.length - 1; i > 0; i--) {
+
+    const j = Math.floor(
       Math.random() * (i + 1)
     );
 
-    [a[i], a[j]] = [a[j], a[i]];
+    [arr[i], arr[j]] =
+      [arr[j], arr[i]];
   }
 
-  return a;
+  return arr;
 }
 
-start.onclick = () => {
-  game.style.display = "block";
-};
-
-newWord.onclick = () => {
-
-  let category = cat.value;
+function getNextWord(category) {
 
   if (
     !bags[category] ||
     bags[category].length === 0
   ) {
 
-    bags[category] = sh(
-      cats[category]
-    );
+    bags[category] =
+      shuffle(cats[category]);
   }
 
-  word.textContent =
-    bags[category].pop();
+  return bags[category].pop();
+}
+
+start.onclick = () => {
+
+  game.style.display = "block";
+
+  document.getElementById(
+    "player1Name"
+  ).textContent = p1.value;
+
+  document.getElementById(
+    "player2Name"
+  ).textContent = p2.value;
+
+  document.getElementById(
+    "p1Point"
+  ).textContent =
+    "✅ " + p1.value + " Got It";
+
+  document.getElementById(
+    "p2Point"
+  ).textContent =
+    "✅ " + p2.value + " Got It";
 };
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register(
-    "sw.js"
-  );
-}
-.scoreboard{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:20px;
-}
+newWord.onclick = () => {
 
-.score-card{
-    background:#334155;
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
-}
+  const currentCategory =
+    cat.value;
 
-.score-card div:first-child{
-    font-weight:bold;
-}
+  const wordValue =
+    getNextWord(currentCategory);
 
-.score-card div:last-child{
-    font-size:42px;
-    font-weight:900;
-}
+  word.textContent =
+    wordValue;
 
-.score-btn{
-    width:100%;
-    margin-top:10px;
-    padding:15px;
-    font-size:18px;
-    font-weight:bold;
-}
+  addHistory(wordValue);
+};
 
-#winnerBanner{
-    margin-top:20px;
-    background:#facc15;
-    color:#111827;
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    font-size:28px;
-    font-weight:900;
-}
-let score1 = 0;
-let score2 = 0;
+function addHistory(wordText) {
 
-const WIN_SCORE = 15;
+  const history =
+    document.getElementById(
+      "history"
+    );
+
+  const item =
+    document.createElement(
+      "div"
+    );
+
+  item.textContent =
+    wordText;
+
+  history.prepend(item);
+
+  while (
+    history.children.length > 10
+  ) {
+
+    history.removeChild(
+      history.lastChild
+    );
+  }
+}
 
 function checkWinner() {
 
-    if(score1 >= WIN_SCORE){
+  if (score1 >= WIN_SCORE) {
 
-        showWinner(
-            document.getElementById("p1").value
-        );
-    }
+    showWinner(
+      p1.value
+    );
+  }
 
-    if(score2 >= WIN_SCORE){
+  if (score2 >= WIN_SCORE) {
 
-        showWinner(
-            document.getElementById("p2").value
-        );
-    }
+    showWinner(
+      p2.value
+    );
+  }
 }
 
-function showWinner(name){
+function showWinner(winnerName) {
 
-    let banner =
-        document.getElementById(
-            "winnerBanner"
-        );
+  const winner =
+    document.getElementById(
+      "winnerBanner"
+    );
 
-    if(!banner){
+  winner.innerHTML =
+    "🏆 " +
+    winnerName +
+    " WINS!";
 
-        banner =
-            document.createElement("div");
+  winner.style.display =
+    "block";
 
-        banner.id = "winnerBanner";
-
-        document
-            .getElementById("game")
-            .appendChild(banner);
-    }
-
-    banner.innerHTML =
-        "🏆 " +
-        name +
-        " WINS!";
+  localStorage.setItem(
+    "winner",
+    winnerName
+  );
 }
 
 document
-    .getElementById("p1Point")
-    .addEventListener(
-        "click",
-        () => {
+  .getElementById(
+    "p1Point"
+  )
+  .onclick = () => {
 
-            score1 += 3;
+    score1 += 3;
 
-            document
-                .getElementById(
-                    "score1"
-                )
-                .textContent = score1;
+    document.getElementById(
+      "score1"
+    ).textContent =
+      score1;
 
-            checkWinner();
-        }
+    localStorage.setItem(
+      "score1",
+      score1
     );
+
+    checkWinner();
+  };
 
 document
-    .getElementById("p2Point")
-    .addEventListener(
-        "click",
-        () => {
+  .getElementById(
+    "p2Point"
+  )
+  .onclick = () => {
 
-            score2 += 3;
+    score2 += 3;
 
-            document
-                .getElementById(
-                    "score2"
-                )
-                .textContent = score2;
+    document.getElementById(
+      "score2"
+    ).textContent =
+      score2;
 
-            checkWinner();
-        }
+    localStorage.setItem(
+      "score2",
+      score2
     );
+
+    checkWinner();
+  };
+
+const saved1 =
+  localStorage.getItem(
+    "score1"
+  );
+
+const saved2 =
+  localStorage.getItem(
+    "score2"
+  );
+
+if (saved1) {
+
+  score1 =
+    Number(saved1);
+
+  document.getElementById(
+    "score1"
+  ).textContent =
+    score1;
+}
+
+if (saved2) {
+
+  score2 =
+    Number(saved2);
+
+  document.getElementById(
+    "score2"
+  ).textContent =
+    score2;
+}
+
+if ("serviceWorker" in navigator) {
+
+  navigator.serviceWorker
+    .register("sw.js");
+}
