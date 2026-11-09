@@ -58,3 +58,44 @@ if ("serviceWorker" in navigator) {
     "sw.js"
   );
 }
+.scoreboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.score-card{
+    background:#334155;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.score-card div:first-child{
+    font-weight:bold;
+}
+
+.score-card div:last-child{
+    font-size:42px;
+    font-weight:900;
+}
+
+.score-btn{
+    width:100%;
+    margin-top:10px;
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+#winnerBanner{
+    margin-top:20px;
+    background:#facc15;
+    color:#111827;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    font-size:28px;
+    font-weight:900;
+}
