@@ -99,3 +99,85 @@ if ("serviceWorker" in navigator) {
     font-size:28px;
     font-weight:900;
 }
+let score1 = 0;
+let score2 = 0;
+
+const WIN_SCORE = 15;
+
+function checkWinner() {
+
+    if(score1 >= WIN_SCORE){
+
+        showWinner(
+            document.getElementById("p1").value
+        );
+    }
+
+    if(score2 >= WIN_SCORE){
+
+        showWinner(
+            document.getElementById("p2").value
+        );
+    }
+}
+
+function showWinner(name){
+
+    let banner =
+        document.getElementById(
+            "winnerBanner"
+        );
+
+    if(!banner){
+
+        banner =
+            document.createElement("div");
+
+        banner.id = "winnerBanner";
+
+        document
+            .getElementById("game")
+            .appendChild(banner);
+    }
+
+    banner.innerHTML =
+        "🏆 " +
+        name +
+        " WINS!";
+}
+
+document
+    .getElementById("p1Point")
+    .addEventListener(
+        "click",
+        () => {
+
+            score1 += 3;
+
+            document
+                .getElementById(
+                    "score1"
+                )
+                .textContent = score1;
+
+            checkWinner();
+        }
+    );
+
+document
+    .getElementById("p2Point")
+    .addEventListener(
+        "click",
+        () => {
+
+            score2 += 3;
+
+            document
+                .getElementById(
+                    "score2"
+                )
+                .textContent = score2;
+
+            checkWinner();
+        }
+    );
