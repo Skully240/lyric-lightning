@@ -109,15 +109,24 @@ button{
     margin-top:15px;
 }
 
+.button-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
 .score-btn{
     width:100%;
-    padding:15px;
-    margin-top:10px;
+    padding:16px;
 
     font-size:18px;
-    font-weight:bold;
+    font-weight:700;
 
+    border:none;
     border-radius:12px;
+
+    cursor:pointer;
 }
 
 .p1{
@@ -134,7 +143,18 @@ button{
     margin-top:25px;
     margin-bottom:10px;
 }
+@media(max-width:600px){
 
+    .button-row{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .score-btn{
+        font-size:15px;
+        padding:14px 8px;
+    }
+}
 #history{
 
     height:120px;
