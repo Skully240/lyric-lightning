@@ -229,6 +229,12 @@ startBtn.addEventListener(
 
         resetGame();
 
+        // Hide setup card
+        startBtn
+            .closest(".card")
+            .style.display = "none";
+
+        // Show game
         game.classList.remove(
             "hidden"
         );
