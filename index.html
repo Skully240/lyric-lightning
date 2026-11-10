@@ -172,6 +172,36 @@ button{
     border-radius:16px;
     text-align:center;
 }
+    startBtn.addEventListener(
+    "click",
+    () => {
+
+        resetGame();
+
+        document
+            .getElementById(
+                "setupCard"
+            )
+            .style.display =
+            "block";
+
+        game.classList.remove(
+            "hidden"
+        );
+
+        player1Name.textContent =
+            p1Input.value;
+
+        player2Name.textContent =
+            p2Input.value;
+
+        p1Point.textContent =
+            `✅ ${p1Input.value} Got It`;
+
+        p2Point.textContent =
+            `✅ ${p2Input.value} Got It`;
+    }
+);
 
 @media(max-width:600px){
 
@@ -204,7 +234,7 @@ button{
 
 <h1>⚡ LYRIC LIGHTNING ⚡</h1>
 
-<div class="card">
+<div id="setupCard" class="card">
 
     <input id="p1" value="Alex">
     <input id="p2" value="Jordan">
